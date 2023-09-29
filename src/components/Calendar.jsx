@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CalendarHeader from "./CalendarHeader";
-import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import {
   getPreviousMonthDays,
@@ -9,6 +8,7 @@ import {
   getDateInfo,
 } from "../utils/index";
 import WeekDays from "./WeekDays";
+import CalendarActions from "./CalendarActions";
 
 const CalendarContainer = styled.div`
   background-color: rgb(240, 240, 240);
@@ -98,8 +98,15 @@ const PlaceholderDay = styled(CalendarDay)`
   }};
 `;
 
-const Calendar = ({ startDate, setStartDate, endDate, setEndDate }) => {
-  const [currentMonth, setCurrentMonth] = useState(dayjs().format("MMMM YYYY"));
+const Calendar = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  currentMonth,
+  setCurrentMonth,
+  clearDays,
+}) => {
   const [currentMonthDays, setCurrentMonthDays] = useState("Loading...");
 
   //handle day click, sets start and end date for events
@@ -138,7 +145,6 @@ const Calendar = ({ startDate, setStartDate, endDate, setEndDate }) => {
   // Renders the current month days (prev, current, next)
   // Re-renders on change from start event date, end event date and month change
   useEffect(() => {
-    console.log("start", startDate, "\nend", endDate);
     const previousMonthDays = getPreviousMonthDays(currentMonth).map(
       ({ key, content, value }) => (
         <PlaceholderDay
@@ -198,6 +204,7 @@ const Calendar = ({ startDate, setStartDate, endDate, setEndDate }) => {
       </CalendarHeader>
       <WeekDays />
       <CalendarDaysGrid>{currentMonthDays}</CalendarDaysGrid>
+      <CalendarActions clearDays={clearDays} />
     </CalendarContainer>
   );
 };
