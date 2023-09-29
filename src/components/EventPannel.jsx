@@ -114,7 +114,7 @@ const EventPannel = ({ startDate, endDate, clearDays, showEvent }) => {
         }, 2000);
       }
     } else if (inputValue === null) {
-      setError("No dates entered.");
+      setError("No dates selected.");
 
       setTimeout(() => {
         setError("");
