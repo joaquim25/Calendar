@@ -8,7 +8,7 @@ import { getDateInfo } from "./utils/index";
 function App() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [currentMonth, setCurrentMonth] = useState(dayjs().format("MMMM YYYY"));
+  const [currentMonth, setCurrentMonth] = useState(dayjs());
 
   const clearDays = () => {
     setStartDate(null);
@@ -16,12 +16,14 @@ function App() {
   };
 
   const showEvent = (startDate, endDate) => {
+    //set the start and end date states to clicked event dates
     setStartDate(startDate);
     setEndDate(endDate);
-    const target = getDateInfo(startDate);
-    const formattedMonth = target.currentMonth.format("MMMM YYYY");
+    //use getDateInfo helper function to get month of start date
+    const targetMonth = getDateInfo(startDate).currentMonth;
 
-    setCurrentMonth(formattedMonth);
+    //replace the currentMonth state to event month (start)
+    setCurrentMonth(targetMonth);
   };
 
   return (
@@ -33,7 +35,7 @@ function App() {
         setEndDate={setEndDate}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
-        clearDays = {clearDays}
+        clearDays={clearDays}
       />
       <EventPannel
         startDate={startDate}

@@ -8,14 +8,13 @@ import styled from "@emotion/styled";
 
 const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 30px;
 
   & p {
     flex-grow: 1;
     text-align: center;
-    color: rgb(139, 120, 233);
+    color: rgba(105, 74, 225, 0.9);
     font-size: 1.2rem;
     font-weight: 500;
     user-select: none;
@@ -23,16 +22,14 @@ const HeaderContainer = styled.div`
 
   & svg {
     cursor: pointer;
-    color: rgb(139, 120, 233);
-    stroke-width: 0.8;
+    color: rgb(105, 74, 225);
+    stroke-width: 0.9;
     width: 13px;
+    height: 13px;
   }
 `;
 
-const CalendarHeader = ({
-  children,
-  changecurrentMonth,
-}) => {
+const CalendarHeader = ({ children, changecurrentMonth }) => {
   return (
     <HeaderContainer>
       <BsChevronDoubleLeft onClick={() => changecurrentMonth(-1, "year")} />

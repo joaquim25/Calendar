@@ -10,11 +10,13 @@ const WeekDaysList = styled.ul`
   & li {
     font-weight: 700;
     color: rgb(56, 56, 56);
+    user-select: none;
   }
 `;
 
 const WeekDays = () => {
   return (
+    //retrieves and renders each weekday as li from index.js weekDays array
     <WeekDaysList>
       {weekDays.map((weekDay) => (
         <li key={weekDay.key}>{weekDay.name}</li>
