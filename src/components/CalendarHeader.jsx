@@ -15,6 +15,7 @@ const HeaderContainer = styled.div`
     flex-grow: 1;
     text-align: center;
     color: rgba(105, 74, 225, 0.9);
+    color: ${(props) => props.theme.headerPrimColor};
     font-size: 1.2rem;
     font-weight: 500;
     user-select: none;
@@ -22,7 +23,7 @@ const HeaderContainer = styled.div`
 
   & svg {
     cursor: pointer;
-    color: rgb(105, 74, 225);
+    color: ${(props) => props.theme.headerPrimColor};
     stroke-width: 0.9;
     width: 13px;
     height: 13px;

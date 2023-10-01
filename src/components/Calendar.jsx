@@ -12,7 +12,7 @@ import CalendarActions from "./CalendarActions";
 
 const CalendarContainer = styled.div`
   box-sizing: border-box;
-  background-color: rgb(240, 240, 240);
+  background-color: ${(props) => props.theme.backgroundColor};
   box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.4);
   width: 450px;
   height: 350px;
@@ -85,6 +85,8 @@ const CurrentMonthDay = styled.div`
       value.isBefore(endDate)
     ) {
       return "rgb(139, 120, 233)";
+    } else {
+      return (props) => props.theme.primColor;
     }
   }};
 `;

@@ -39,9 +39,8 @@ const EventListContainer = styled.ul`
     display: flex;
     flex-direction: column;
     background-color: rgba(119, 168, 233, 0.3);
-    color: rgba(0, 0, 0, 0.8);
+    color: ${(props) => props.theme.primTextColor};
     font-size: 0.8rem;
-    padding: 8px 0 8px 20px;
     margin: 0 10px 10px 0;
     border-radius: 0 20px 20px 0;
     transition: all 0.2s;
@@ -52,12 +51,13 @@ const EventListContainer = styled.ul`
     }
 
     & p {
+      padding: 8px 0 8px 20px;
       margin: 0;
     }
 
     & span {
       display: block;
-      color: black;
+      color: ${(props) => props.theme.primTextColor};
       font-size: 1rem;
       font-weight: 600;
     }
@@ -71,6 +71,7 @@ const EventListContainer = styled.ul`
       height: 30px;
       background: transparent;
       border: none;
+      color: ${(props) => props.theme.primTextColor};
 
       :hover {
         color: red;

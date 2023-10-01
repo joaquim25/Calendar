@@ -11,13 +11,14 @@ const EventContainer = styled.div`
   height: 447px;
   padding: 0.4rem 1rem 0 1rem;
   border-radius: 5px;
-  background-color: rgb(240, 240, 240);
+  background-color: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.primTextColor};
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
 
   & h1 {
     font-size: 1.3rem;
     font-weight: 500;
-    color: rgb(139, 120, 233);
+    color: ${(props) => props.theme.headerPrimColor};
     text-align: center;
     user-select: none;
   }
@@ -36,6 +37,7 @@ const SubmitEventContainer = styled.div`
     border: none;
     background-color: transparent;
     border-bottom: 2px solid rgb(41, 118, 220);
+    color: ${(props) => props.theme.primTextColor};
   }
 
   & svg {
@@ -49,7 +51,7 @@ const SubmitEventContainer = styled.div`
     transition: all 0.2s;
 
     :hover {
-      color: rgb(35, 85, 192);
+      color: ${(props) => props.theme.headerPrimColor};
       transform: scale(1.05);
     }
   }
@@ -59,7 +61,7 @@ const ErrorContainer = styled.div`
   box-sizing: border-box;
   position: absolute;
   z-index: 1;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   color: red;
   font-size: 0.7rem;
   text-align: center;

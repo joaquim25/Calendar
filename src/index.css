@@ -1,7 +1,7 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-  background-color: #dbdbdb;
+  background-color: #4f5168;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -12,9 +12,11 @@
 
 ul {
   list-style: none;
-  color: rgba(173, 173, 173, 0.486);
 }
 
+.test{
+  color: rgb(32, 86, 102);
+}
 
 /*
 a {

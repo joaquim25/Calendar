@@ -9,7 +9,7 @@ const WeekDaysList = styled.ul`
 
   & li {
     font-weight: 700;
-    color: rgb(56, 56, 56);
+    color: ${(props) => props.theme.headerSecColor};
     user-select: none;
   }
 `;
