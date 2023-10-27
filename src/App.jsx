@@ -31,13 +31,31 @@ function App() {
   const [endDate, setEndDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(dayjs());
 
-  const handleThemeChange = () => {
+  const onThemeChange = () => {
     theme === lightTheme ? setTheme(darkTheme) : setTheme(lightTheme);
   };
 
   const clearDays = () => {
     setStartDate(null);
     setEndDate(null);
+  };
+
+  const onChangeCurrentMonth = (modifier, type) => {
+    const dateInfo = getDateInfo(currentMonth);
+    const updatedMonth = dateInfo.currentMonth.add(modifier, type);
+    setCurrentMonth(updatedMonth)
+  };
+
+  const onCreateDate = (day, type) => {
+    switch (type) {
+      case "start":
+        setStartDate(day);
+        break;
+      case "end":
+        setEndDate(day);
+      default:
+        return;
+    }
   };
 
   const showEvent = (startDate, endDate) => {
@@ -53,14 +71,13 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ThemeToggleButton theme={theme} handleThemeChange={handleThemeChange} />
+      <ThemeToggleButton theme={theme} handleThemeChange={onThemeChange} />
       <Calendar
         startDate={startDate}
-        setStartDate={setStartDate}
         endDate={endDate}
-        setEndDate={setEndDate}
         currentMonth={currentMonth}
-        setCurrentMonth={setCurrentMonth}
+        onCreateDate={onCreateDate}
+        onChangeCurrentMonth={onChangeCurrentMonth}
         clearDays={clearDays}
       />
       <EventPannel

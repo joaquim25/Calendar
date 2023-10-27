@@ -85,20 +85,20 @@ const EventListContainer = styled.ul`
   }
 `;
 
-const EventList = ({ eventList, setEventList, showEvent, clearDays }) => {
-  const handleEventClick = (e) => {
+const EventList = ({ eventList, onNewEventList, showEvent, clearDays }) => {
+  const onEventClick = (e) => {
     const startDate = e.currentTarget.getAttribute("data-start");
     const endDate = e.currentTarget.getAttribute("data-end");
     showEvent(startDate, endDate);
   };
 
-  const handleDeleteEvent = (e) => {
+  const onDeleteEvent = (e) => {
     const eventName = e.currentTarget.getAttribute("data-target");
     const updatedEventList = eventList.filter(
       (event) => event.key !== eventName
     );
 
-    setEventList(updatedEventList);
+    onNewEventList(updatedEventList);
     clearDays();
   };
 
@@ -111,12 +111,12 @@ const EventList = ({ eventList, setEventList, showEvent, clearDays }) => {
               data-start={event.start}
               data-end={event.end}
               data-key={event.key}
-              onClick={handleEventClick}
+              onClick={onEventClick}
             >
               <span>{event.value.name}</span>
               {event.value.date}
             </p>
-            <button data-target={event.key} onClick={handleDeleteEvent}>
+            <button data-target={event.key} onClick={onDeleteEvent}>
               <AiOutlineDelete />
             </button>
           </li>

@@ -76,11 +76,15 @@ const EventPannel = ({ startDate, endDate, clearDays, showEvent }) => {
   const [eventList, setEventList] = useState([]);
   const [error, setError] = useState("");
 
-  const handleNameChange = (e) => {
+  const onNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const onNewEventList = (newEventList) => {
+    setEventList(newEventList)
+  }
+
+  const onSubmit = () => {
     const inputValue =
       startDate && endDate
         ? `Start date: ${startDate.format(
@@ -137,16 +141,16 @@ const EventPannel = ({ startDate, endDate, clearDays, showEvent }) => {
         <input
           placeholder="Enter event name..."
           value={name}
-          onChange={handleNameChange}
+          onChange={onNameChange}
         />
-        <TbCalendarPlus onClick={handleSubmit} />
+        <TbCalendarPlus onClick={onSubmit} />
         {error && <ErrorContainer>{error}</ErrorContainer>}
       </SubmitEventContainer>
       <EventList
         clearDays={clearDays}
-        eventList={eventList}
-        setEventList={setEventList}
         showEvent={showEvent}
+        eventList={eventList}
+        onNewEventList={onNewEventList}
       />
     </EventContainer>
   );

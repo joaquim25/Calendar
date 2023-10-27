@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import CalendarHeader from "./CalendarHeader";
 import styled from "@emotion/styled";
 import {
@@ -110,18 +110,13 @@ const NonCurrentMonthDay = styled(CurrentMonthDay)`
 
 const Calendar = ({
   startDate,
-  setStartDate,
   endDate,
-  setEndDate,
   currentMonth,
-  setCurrentMonth,
+  onCreateDate,
+  onChangeCurrentMonth,
   clearDays,
 }) => {
-  const [currentMonthDays, setCurrentMonthDays] = useState("Loading...");
-
-  // Renders the current month days (prev, current, next)
-  // Re-renders on change from start event date, end event date and month change
-  useEffect(() => {
+  const currentMonthDays = useMemo(() => {
     const previousMonthDays = getPreviousMonthDays(currentMonth).map(
       ({ key, content, value }) => (
         <NonCurrentMonthDay
@@ -135,8 +130,8 @@ const Calendar = ({
         </NonCurrentMonthDay>
       )
     );
-    // Determine the current days of the month
-    const currentMonthDays = getCurrentMonthDays(currentMonth).map(
+
+    const currentDays = getCurrentMonthDays(currentMonth).map(
       ({ key, content, value }) => (
         <CurrentMonthDay
           key={key}
@@ -150,7 +145,6 @@ const Calendar = ({
       )
     );
 
-    // Determine the next days of the month that need to be filled
     const nextMonthDays = getNextMonthDays(currentMonth).map(
       ({ key, content, value }) => (
         <NonCurrentMonthDay
@@ -165,56 +159,42 @@ const Calendar = ({
       )
     );
 
-    const result = [
-      ...previousMonthDays,
-      ...currentMonthDays,
-      ...nextMonthDays,
-    ];
-
-    setCurrentMonthDays(result);
-  }, [startDate, endDate, currentMonth]);
+    return [...previousMonthDays, ...currentDays, ...nextMonthDays];
+  }, [currentMonth, startDate, endDate]);
 
   //handle day click, sets start and end date for events
   const handleDayClick = (day) => {
     // Case 1: Start date is not set
     if (!startDate) {
-      setStartDate(day);
+      onCreateDate(day, "start");
     } else {
       // Case 2: Start date is set, but end date is not set
       if (!endDate) {
         if (day.isBefore(startDate)) {
-          setStartDate(day);
+          onCreateDate(day, "start");
         } else if (day.isAfter(startDate)) {
-          setEndDate(day);
+          onCreateDate(day, "end");
         } else {
           // Reset start date if start date is clicked again
-          setStartDate(null);
+          onCreateDate(null, "start");
         }
       } else {
         // Case 3: Both start and end dates are set
         if (day.isAfter(startDate)) {
-          setEndDate(day);
+          onCreateDate(day, "end");
         } else if (day.isBefore(startDate)) {
-          setStartDate(day);
+          onCreateDate(day, "start");
         } else {
           // Reset both start and end dates if start date is clicked again
-          setStartDate(null);
-          setEndDate(null);
+          clearDays();
         }
       }
     }
   };
 
-  //Base function to handle month or year change (+1 || -1) [CalendarHeader]
-  const changecurrentMonth = (modifier, type) => {
-    const dateInfo = getDateInfo(currentMonth);
-    const updatedMonth = dateInfo.currentMonth.add(modifier, type);
-    setCurrentMonth(updatedMonth);
-  };
-
   return (
     <CalendarContainer>
-      <CalendarHeader changecurrentMonth={changecurrentMonth}>
+      <CalendarHeader onChangeCurrentMonth={onChangeCurrentMonth}>
         {currentMonth.format("MMMM YYYY")}
       </CalendarHeader>
       <WeekDays />

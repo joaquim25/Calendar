@@ -30,14 +30,14 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const CalendarHeader = ({ children, changecurrentMonth }) => {
+const CalendarHeader = ({ children, onChangeCurrentMonth }) => {
   return (
     <HeaderContainer>
-      <BsChevronDoubleLeft onClick={() => changecurrentMonth(-1, "year")} />
-      <BsChevronLeft onClick={() => changecurrentMonth(-1, "month")} />
+      <BsChevronDoubleLeft onClick={() => onChangeCurrentMonth(-1, "year")} />
+      <BsChevronLeft onClick={() => onChangeCurrentMonth(-1, "month")} />
       <p>{children}</p>
-      <BsChevronRight onClick={() => changecurrentMonth(1, "month")} />
-      <BsChevronDoubleRight onClick={() => changecurrentMonth(1, "year")} />
+      <BsChevronRight onClick={() => onChangeCurrentMonth(1, "month")} />
+      <BsChevronDoubleRight onClick={() => onChangeCurrentMonth(1, "year")} />
     </HeaderContainer>
   );
 };
